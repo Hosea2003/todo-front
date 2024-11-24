@@ -5,11 +5,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --neon: #fd08f1;
+  --secondary:#6b6a6a;
+  --primary:#171717;
 }
 
 .dark {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary:#ededed;
 }
 
 body {
