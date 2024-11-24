@@ -1,0 +1,14 @@
+{
+    "connect":"Sign In",
+    "connectMessage":"Better manage your projects with",
+    "email":"Email",
+    "login":"Login",
+    "password":"Password",
+    "confirmPassword":"Confirm your password",
+    "register":"Sign up",
+    "registerMessage":"Simplify project management with",
+    "create":"Create",
+    "haveAccount":"You already have an account?",
+    "or":"Or",
+    "dontHaveAccount":"You don't have an account?"
+}

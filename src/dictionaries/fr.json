@@ -1,0 +1,14 @@
+{
+    "connect":"Connecter vous",
+    "connectMessage":"Gerer mieux vos projets avec",
+    "email":"Email",
+    "login":"Se connecter",
+    "password":"Mot de passe",
+    "confirmPassword":"Confirmer votre mote de passe",
+    "register":"Créer votre compte",
+    "registerMessage":"Simplifier la gestion de projet avec",
+    "create":"Créer",
+    "haveAccount":"Vous avez déjà un compte?",
+    "or":"Ou",
+    "dontHaveAccount":"Vous n'avez pas de compte?"
+}
