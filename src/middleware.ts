@@ -10,8 +10,6 @@ function getLocale(req:NextRequest){
 
     const cookieLocale = req.cookies.get("locale")?.value
 
-    console.log(cookieLocale)
-
     if(cookieLocale){
         return cookieLocale
     }
