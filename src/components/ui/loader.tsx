@@ -7,7 +7,7 @@ function Loader(){
 
 export function LoaderPage() {
   return (
-    <div className='w-full min-h-screen flex justify-center p-8 bg-inherit'>
+    <div className='w-full min-h-screen flex justify-center p-8 bg-background'>
         <Loader/>
     </div>
   )

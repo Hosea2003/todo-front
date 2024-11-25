@@ -5,17 +5,25 @@ import React, { useState } from "react"
 import { IoEyeSharp } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 
+type FormInputProps = {
+    error?:boolean
+}&React.InputHTMLAttributes<HTMLInputElement>
+
 const FormInput=React.forwardRef<
         HTMLInputElement,
-        React.InputHTMLAttributes<HTMLInputElement>
-    >(({className, ...props}, ref)=>(
+        FormInputProps
+    >(({className, error, ...props}, ref)=>(
         <input ref={ref} 
-            className={cn('border border-secondary rounded-lg title p-2 outline-none text-sm', className)} {...props}/>
+            className={cn(
+                'border border-secondary rounded-lg title p-2 outline-none text-sm',
+                error?"border-red-500":"", 
+                className)} 
+            {...props}/>
     ))
 
 const PasswordInput=React.forwardRef<
     HTMLInputElement,
-    React.InputHTMLAttributes<HTMLInputElement>
+    FormInputProps
 >(({className, type="password", ...props}, ref)=>{
     const [inputType, setInputType]=useState(type)
 

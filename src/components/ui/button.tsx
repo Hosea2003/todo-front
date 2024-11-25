@@ -18,7 +18,7 @@ function PrimaryButton({className, loading=false, children,...props}:PrimaryButt
                         loading?"bg-neon":"")}
             {...props} disabled={loading}>
             {loading ? (
-                <ClipLoader size={20} color="white"/>
+                <ClipLoader size={15} color="white"/>
             ):(
                 children
             )}

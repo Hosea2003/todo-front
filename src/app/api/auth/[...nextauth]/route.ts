@@ -20,7 +20,10 @@ const handler = NextAuth({
             },
             async authorize(credentials){
                 try{
-                    const response = await axios.post<PairToken>(BASE_URL+"/user/login")
+                    const response = await axios.post<PairToken>(BASE_URL+"/user/login",{
+                        email:credentials?.email,
+                        password:credentials?.password
+                    })
                     const data = response.data
                     if(response.status===200){
                         return {
@@ -33,7 +36,8 @@ const handler = NextAuth({
                     }
                     return null
                 }
-                catch{
+                catch(error:any){
+                    console.log(error.response.data)
                     throw new Error("Authorization failed")
                 }
             }
@@ -60,7 +64,8 @@ const handler = NextAuth({
         }
     },
     pages:{
-        signIn:"/login"
+        signIn:"/login",
+        error:"/login"
     }
 })
 
