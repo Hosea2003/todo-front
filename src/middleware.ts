@@ -3,6 +3,7 @@ import Negotiator from "negotiator"
 import { match } from "@formatjs/intl-localematcher";
 import { AppMiddleware } from "./types/middleware";
 import { stackMiddleware } from "./lib/stack";
+import withAuth from "next-auth/middleware";
 
 function getLocale(req:NextRequest){
     const defaultLocale = "fr-FR"
@@ -24,4 +25,26 @@ const i18Middleware=(middleware:AppMiddleware)=>{
     }
 }
 
-export default stackMiddleware([i18Middleware])
+const _auth = withAuth(
+    {
+		callbacks: {
+			authorized: ({ token }) => !!token,
+		},
+	}
+)
+
+const authMiddleware =(middleware:AppMiddleware)=>{
+    return async (req:NextRequest, res:NextResponse)=>{
+        const response = await (_auth as any)(req)
+        response?.headers.set("accept-language", res.headers.get('accept-language')??"")
+        return middleware(req, response)
+    }
+}
+
+export const config={
+    matcher:[
+        "/"
+    ]
+}
+
+export default stackMiddleware([i18Middleware, authMiddleware])
