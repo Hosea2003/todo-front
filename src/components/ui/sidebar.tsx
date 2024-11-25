@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { VscLayoutSidebarRight } from "react-icons/vsc";
 import { NavLink } from './link';
 import { RiHome6Fill } from "react-icons/ri";
@@ -12,11 +12,20 @@ import { MdSunny } from "react-icons/md";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { useLocale } from '../providers/LanguageProvider';
 import CustomSelect, { OptionType } from './select';
+import { useSize } from '@/lib/size';
 
 function Sidebar() {
     const [isCollapse, setCollapse]=useState(false)
     const {theme, setTheme} = useTheme()
     const {dictionary, locale, changeLocale}=useLocale()
+    const {width}=useSize()
+
+    useEffect(()=>{
+        // equivalent of md in tailwind
+        if(width<=768){
+            setCollapse(true)
+        }
+    }, [width])
 
     const localeOptions = [
         {value:"fr-FR", label:"Français"},
@@ -28,10 +37,14 @@ function Sidebar() {
     }
     
   return (
-    <div className={cn('flex flex-col bg-sidebar rounded-md p-4', isCollapse?"w-fit":"w-[250px]")}>
-        <div className="flex justify-between space-x-2">
-            <Link className="text-lg font-semibold text-neon" href={"/"}>UpperManage</Link>
-            <button>
+    <div className={cn('flex flex-col bg-sidebar rounded-md p-4 transition-all duration-200 ease-out', 
+        isCollapse?"w-[65px]":"w-[250px]",
+        !isCollapse && width<=768?"fixed top-0 left-0 bottom-0":"")}>
+        <div className={cn("flex space-x-2", isCollapse?"justify-center":"justify-between")}>
+            {!isCollapse &&(
+                <Link className="text-lg font-semibold text-neon" href={"/"}>UpperManage</Link>
+            )}
+            <button onClick={()=>setCollapse(!isCollapse)}>
                 <VscLayoutSidebarRight className='text-gray'/>
             </button>
         </div>
@@ -39,13 +52,17 @@ function Sidebar() {
             <NavLink href='/' icon={<RiHome6Fill/>} label={dictionary["home"]} isCollapse={isCollapse}/>
             <hr className="flex-1 text-secondary"/>
             <NavLink href='/projects' icon={<AiFillProject/>} label={dictionary["projects"]} isCollapse={isCollapse}/>
-            <ul className="flex-1 ps-7">
-                <NavLink href='/projects/1' label='Projet 1'/>
-            </ul>
+            {!isCollapse && (
+                <ul className="flex-1 ps-7">
+                    <NavLink href='/projects/1' label='Projet 1'/>
+                </ul>
+            )}
             <hr className="flex-1 text-secondary" />
-            <span className="text-xs text-secondary">{dictionary["settings"]}</span>
-            <div className="flex justify-between px-4 py-2">
-                <span className="text-xs">{dictionary["mode"]}</span>
+            {!isCollapse &&(
+                <span className="text-xs text-secondary">{dictionary["settings"]}</span>
+            )}
+            <div className={cn("flex px-4 py-2", isCollapse?"justify-center":"justify-between")}>
+                {!isCollapse && (<span className="text-xs">{dictionary["mode"]}</span>)}
                 <button onClick={()=>setTheme(prev=>prev==="light"?"dark":"light")}>
                     {theme==="light"?(
                         <BsFillMoonStarsFill/>
@@ -54,10 +71,12 @@ function Sidebar() {
                     )}
                 </button>
             </div>
-            <CustomSelect options={localeOptions} defaultValue={
-                localeOptions.filter(l=>l.value===locale)[0]
-            }
-                onChange={(newValue)=>handleChangeLocale(newValue)}/>
+            {!isCollapse && (
+                <CustomSelect options={localeOptions} defaultValue={
+                    localeOptions.filter(l=>l.value===locale)[0]
+                }
+                    onChange={(newValue)=>handleChangeLocale(newValue)}/>
+            )}
         </nav>
     </div>
   )

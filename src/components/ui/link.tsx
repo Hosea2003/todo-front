@@ -17,9 +17,12 @@ export function NavLink({href, icon,isCollapse, label}:NavLinkProps){
     const isActive = pathname===href
 
     return (
-        <Link href={href} className={cn("flex items-center space-x-4 text-xs px-4 py-2 rounded-md hover:bg-gray", isActive?"bg-light-gray font-semibold":"")}>
+        <Link href={href} className={cn(
+            "flex items-center space-x-4 py-2 rounded-md hover:bg-gray text-lg", 
+            isActive?"bg-light-gray font-semibold":"",
+            isCollapse?"justify-center px-0":"px-4")}>
             {icon}
-            {!isCollapse && (<span>{label}</span>)}
+            {!isCollapse && (<span className="text-xs">{label}</span>)}
         </Link>
     )
 }
