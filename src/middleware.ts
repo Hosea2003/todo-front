@@ -7,12 +7,20 @@ import withAuth from "next-auth/middleware";
 
 function getLocale(req:NextRequest){
     const defaultLocale = "fr-FR"
+
+    const cookieLocale = req.cookies.get("locale")?.value
+
+    console.log(cookieLocale)
+
+    if(cookieLocale){
+        return cookieLocale
+    }
+
     const headers = {"accept-language":req.headers.get("accept-language")??defaultLocale}
     const languages = new Negotiator({headers}).languages()
     const locales = ['fr-FR', 'en-EN']
 
     const locale = match(languages, locales, defaultLocale)
-
     return locale
 }
 
@@ -20,6 +28,7 @@ const i18Middleware=(middleware:AppMiddleware)=>{
     return async (req:NextRequest, res:NextResponse)=>{
         const locale = getLocale(req)
         const response = NextResponse.next()
+        response.cookies.set("locale", locale, { path: "/", httpOnly: false });
         response.headers.set("accept-language", locale)
         return middleware(req, response)
     }
@@ -35,9 +44,8 @@ const _auth = withAuth(
 
 const authMiddleware =(middleware:AppMiddleware)=>{
     return async (req:NextRequest, res:NextResponse)=>{
-        const response = await (_auth as any)(req)
-        response?.headers.set("accept-language", res.headers.get('accept-language')??"")
-        return middleware(req, response)
+        await (_auth as any)(req)
+        return middleware(req, res)
     }
 }
 

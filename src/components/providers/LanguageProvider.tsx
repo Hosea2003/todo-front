@@ -1,11 +1,13 @@
 "use client"
 
 import { DictKey } from "@/lib/dictionaries"
+import axios from "axios"
 import React, { createContext, useContext, useState } from "react"
 
 type LangContextProps={
     dictionary:Record<string, string>,
-    changeLocale:(newLocale:string)=>void
+    changeLocale:(newLocale:string)=>void,
+    locale:string
 }
 
 const LangContext = createContext<LangContextProps>({} as LangContextProps)
@@ -20,14 +22,20 @@ export function LangProvider(
             const lang = locale.split('-')[0] as DictKey
             return dictionaries[lang]
         })
+        const [_locale, setLocale]=useState(locale)
 
-        function changeLocale(newLocale:string){
+        async function changeLocale(newLocale:string){
             const lang = newLocale.split('-')[0] as DictKey
+            await axios("/api/locale", {
+                method:"POST",
+                data:{locale:newLocale}
+            })
             setDictionary(dictionaries[lang])
+            setLocale(newLocale)
         }
 
         const data={
-            dictionary, changeLocale
+            dictionary, changeLocale, locale:_locale
         }
 
         return (

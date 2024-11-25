@@ -39,7 +39,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MainLayout>
-          <ThemeProvider attribute={'class'} defaultTheme="dark">
+          <ThemeProvider attribute={'class'} defaultTheme="system">
             <LangProvider dictionaries={dictionaries} locale={locale}>
               {children}
             </LangProvider>

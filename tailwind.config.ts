@@ -13,7 +13,10 @@ export default {
         foreground: "var(--foreground)",
         neon:"var(--neon)",
         secondary:"var(--secondary)",
-        primary:"var(--primary)"
+        primary:"var(--primary)",
+        sidebar:"var(--sidebar)",
+        gray:"var(--gray)",
+        "light-gray":"var(--light-gray)"
       },
     },
   },

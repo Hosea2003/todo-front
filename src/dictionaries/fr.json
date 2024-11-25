@@ -10,5 +10,9 @@
     "create":"Créer",
     "haveAccount":"Vous avez déjà un compte?",
     "or":"Ou",
-    "dontHaveAccount":"Vous n'avez pas de compte?"
+    "dontHaveAccount":"Vous n'avez pas de compte?",
+    "home":"Accueil",
+    "projects":"Projets",
+    "mode":"Mode",
+    "settings":"Paramètres"
 }
