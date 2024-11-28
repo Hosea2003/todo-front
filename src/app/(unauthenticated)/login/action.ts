@@ -10,7 +10,7 @@ export async function loginAction(state:LoginProps, formData:FormData){
         email:formData.get('email'),
         password:formData.get("password"),
         callbackUrl:'/',
-        redirect:false
+        redirect:true
     })
 
     if(response?.error){

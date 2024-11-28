@@ -13,12 +13,14 @@ import { BsFillMoonStarsFill } from "react-icons/bs";
 import { useLocale } from '../providers/LanguageProvider';
 import CustomSelect, { OptionType } from './select';
 import { useSize } from '@/lib/size';
+import { useProject } from '../providers/ProjectProvider';
 
 function Sidebar() {
     const [isCollapse, setCollapse]=useState(false)
     const {theme, setTheme} = useTheme()
     const {dictionary, locale, changeLocale}=useLocale()
     const {width}=useSize()
+    const {projects} = useProject()
 
     useEffect(()=>{
         // equivalent of md in tailwind
@@ -54,7 +56,9 @@ function Sidebar() {
             <NavLink href='/projects' icon={<AiFillProject/>} label={dictionary["projects"]} isCollapse={isCollapse}/>
             {!isCollapse && (
                 <ul className="flex-1 ps-7">
-                    <NavLink href='/projects/1' label='Projet 1'/>
+                    {projects.map((project, index)=>(
+                        <NavLink href={`/project/${project._id}`} label={project.title}/>
+                    ))}
                 </ul>
             )}
             <hr className="flex-1 text-secondary" />

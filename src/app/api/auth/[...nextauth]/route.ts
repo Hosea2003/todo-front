@@ -1,7 +1,7 @@
 import { BASE_URL } from "@/service/api";
 import { PairToken, SessionToken } from "@/types/user";
 import axios from "axios";
-import NextAuth from "next-auth";
+import NextAuth, { JWT } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
@@ -43,6 +43,10 @@ const handler = NextAuth({
             }
         })
     ],
+    session:{
+        maxAge:8*60*60,
+        strategy:"jwt"
+    },
     callbacks:{
         async jwt({token, user}){
             if(user){
@@ -55,18 +59,18 @@ const handler = NextAuth({
             return token
         },
         async session({session, token}){
-            const _token = token as SessionToken
-            session.id = _token.id
-            session.accessToken=_token.accessToken
-            session.refreshToken=_token.refreshToken
-            session.email = _token.email
+            session.id = token.id as string
+            session.accessToken=token.accessToken as string
+            session.refreshToken=token.refreshToken as string
+            session.email = token.email as string
             return session
         }
     },
     pages:{
         signIn:"/login",
         error:"/login"
-    }
+    },
+    secret:process.env.NEXTAUTH_SECRET
 })
 
 export {handler as GET, handler as POST}
