@@ -20,7 +20,7 @@ function AddProject() {
     }, [state.error, state.project])
 
   return (
-    <form className='flex flex-col max-w-[450px] w-full gap-2 md:flex-row' action={formAction}>
+    <form className='flex flex-col max-w-[450px] w-full gap-2' action={formAction}>
         <p className="text-2xl font-semibold">{dictionary["createProject"]}</p>
         <FormInput name='title'/>
         <SubmitButton>{dictionary["create"]}</SubmitButton>
