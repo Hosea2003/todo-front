@@ -1,7 +1,7 @@
 import { BASE_URL } from "@/service/api";
-import { PairToken, SessionToken } from "@/types/user";
+import { PairToken } from "@/types/user";
 import axios from "axios";
-import NextAuth, { JWT } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({

@@ -14,5 +14,8 @@
     "home":"Accueil",
     "projects":"Projets",
     "mode":"Mode",
-    "settings":"Paramètres"
+    "settings":"Paramètres",
+    "createProject":"Creer votre project",
+    "title":"Titre",
+    "addTask":"Ajouter une tâche"
 }

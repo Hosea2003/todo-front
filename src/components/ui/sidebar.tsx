@@ -13,14 +13,14 @@ import { BsFillMoonStarsFill } from "react-icons/bs";
 import { useLocale } from '../providers/LanguageProvider';
 import CustomSelect, { OptionType } from './select';
 import { useSize } from '@/lib/size';
-import { useProject } from '../providers/ProjectProvider';
+import { useProjectsStore } from '@/store/store';
 
 function Sidebar() {
     const [isCollapse, setCollapse]=useState(false)
     const {theme, setTheme} = useTheme()
     const {dictionary, locale, changeLocale}=useLocale()
     const {width}=useSize()
-    const {projects} = useProject()
+    const {projects}=useProjectsStore()
 
     useEffect(()=>{
         // equivalent of md in tailwind
@@ -39,7 +39,7 @@ function Sidebar() {
     }
     
   return (
-    <div className={cn('flex flex-col bg-sidebar rounded-md p-4 transition-all duration-200 ease-out', 
+    <div className={cn('flex flex-col bg-sidebar rounded-md p-4 transition-all duration-200 ease-out sticky', 
         isCollapse?"w-[65px]":"w-[250px]",
         !isCollapse && width<=768?"fixed top-0 left-0 bottom-0":"")}>
         <div className={cn("flex space-x-2", isCollapse?"justify-center":"justify-between")}>
@@ -57,7 +57,7 @@ function Sidebar() {
             {!isCollapse && (
                 <ul className="flex-1 ps-7">
                     {projects.map((project, index)=>(
-                        <NavLink href={`/project/${project._id}`} label={project.title}/>
+                        <NavLink href={`/projects/${project._id}`} label={project.title} key={index}/>
                     ))}
                 </ul>
             )}

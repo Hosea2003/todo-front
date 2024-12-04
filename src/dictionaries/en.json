@@ -14,5 +14,8 @@
     "home":"Home",
     "projects":"Projects",
     "mode":"Mode",
-    "settings":"Settings"
+    "settings":"Settings",
+    "createProject":"Create your project",
+    "title":"Title",
+    "addTask":"Add task"
 }
